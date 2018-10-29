@@ -6,6 +6,7 @@ class Records extends CI_Controller {
 
         $this->load->helper("url");
         $this->load->library('upload');
+        $this->load->library('ion_auth');
     }
 
     public function index() {
@@ -15,12 +16,20 @@ class Records extends CI_Controller {
     }
 
     public function add() {
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
+
         $rec = $this->input->post("record");
         $this->record->add($rec);
         redirect('records');
     }
 
     public function addFromFile() {
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
+
         if ( ! $this->upload->do_upload('records-file')) {
             echo "UH OH SOMETHING WENT WRONG!!";
             var_dump($this->upload->display_errors());
@@ -40,6 +49,10 @@ class Records extends CI_Controller {
     }
 
     public function delete() {
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
+
         $id = $this->input->post("record-id");
         $this->record->delete($id);
         redirect('records');

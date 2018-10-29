@@ -45,6 +45,18 @@ $(function() {
         });
     }
 
+    $('#all-records-to-list-add-button').on('click', function() {
+        selectedRecords = [];
+        for (var key in records) {
+            if (records.hasOwnProperty(key)) {
+                var rec = records[key];
+                selectedRecords.push(rec);
+                rec.element.hide();
+            }
+        }
+        updateSelectedRecords();
+    });
+
     $('.record-to-list-add-button').on('click', function() {
         var recId = $(this).attr('record-id');
         var rec = records[recId];
@@ -57,6 +69,10 @@ $(function() {
         var btns = $('.record-to-list-add-button');
         btns.each(function(index) {
             $(this).show();
+        });
+        var rBtns = $('.delete-record-button');
+        rBtns.each(function(index) {
+            $(this).hide();
         });
         $('#record-add-div').hide();
         $('#list-create-button').hide();
@@ -86,4 +102,12 @@ $(function() {
         if($(this).scrollTop() > 100)
             $('.page-actions').css('top', $(this).scrollTop() - 100);
     });
+
+    var mw = $(".record-list").innerWidth();
+    console.log($(".record-list").innerWidth());
+    var its = $(".record-list-info");
+    its.each(function() {
+        $(this).css("width", mw - 60);
+    });
+    console.log($($(".record-list-info")[0]).innerWidth());
 });

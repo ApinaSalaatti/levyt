@@ -14,4 +14,10 @@
             <h1>Mikon ja unskan vinskat ja vinylssonit</h1>
             <a href="<?php echo site_url('records'); ?>">Levyt</a>
             <a href="<?php echo site_url('lists'); ?>">Listat</a>
+
+            <?php if(!$this->ion_auth->logged_in()) { ?>
+                <a class="login-link" href="<?php echo site_url('auth/login'); ?>">Sisään</a>
+            <?php } else { ?>
+                <a class="login-link" href="<?php echo site_url('auth/logout'); ?>">Ulos</a>
+            <?php } ?>
         </div>

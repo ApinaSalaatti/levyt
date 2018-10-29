@@ -6,6 +6,8 @@ class Lists extends CI_Controller {
         $this->load->model('List_model', 'list', true);
 
         $this->load->helper("url");
+
+        $this->load->library("ion_auth");
     }
 
     public function index() {
@@ -28,6 +30,10 @@ class Lists extends CI_Controller {
     }
 
     public function add() {
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
+
         $listData = $this->input->post("new-list");
         $listId = $this->list->add(array('name' => $listData['name']));
         foreach($listData['records'] as $rec) {
@@ -38,11 +44,17 @@ class Lists extends CI_Controller {
     }
 
     public function removeSong() {
-
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
     }
 
 
     public function delete() {
+        if(!$this->ion_auth->logged_in()) {
+            redirect('auth/login');
+        }
+
         $id = $this->input->post("list-id");
         $this->list->delete($id);
         redirect('lists');
