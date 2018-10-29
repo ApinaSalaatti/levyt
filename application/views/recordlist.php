@@ -11,7 +11,7 @@
                     <div class="record-list-actions">
                         <?php if($this->ion_auth->logged_in()) { ?>
                         <button class="btn btn-lg btn-success record-to-list-add-button" record-id="<?php echo $record->id; ?>" style="float:right; margin-left:2px; display:none;">+</button>
-                        <form action="<?php echo site_url('records/delete'); ?>" method="POST" style="float: right">
+                        <form onsubmit="return confirm('Haluatko varmasti poistaa?');" action="<?php echo site_url('records/delete'); ?>" method="POST" style="float: right">
                             <input type="hidden" name="record-id" value="<?php echo $record->id; ?>" />
                             <input type="submit" value="X" class="btn btn-lg btn-danger delete-record-button" />
                         </form>
@@ -27,7 +27,7 @@
                 <?php if($this->ion_auth->logged_in()) { ?>
                 <div class="page-action" id="record-add-div">
                     <h3>Lisää albumi</h3>
-                    <form action="<?php echo site_url('records/add'); ?>" method="POST">
+                    <form onsubmit="return validateNewRecord();" action="<?php echo site_url('records/add'); ?>" method="POST">
                         <div class="form-group">
                             <input id="record-artist" type="text" name="record[artist]" class="form-control" placeholder="Artisti..." />
                         </div>

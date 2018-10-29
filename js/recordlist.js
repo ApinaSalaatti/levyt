@@ -1,6 +1,13 @@
 var records = {};
 var selectedRecords = [];
 
+function validateNewRecord() {
+    var n = $('#record-name').val();
+    var a = $('#record-artist').val();
+
+    return n != '' && a != '';
+}
+
 $(function() {
     var items = $('.record-list-item');
     items.each(function(index) {
@@ -104,10 +111,8 @@ $(function() {
     });
 
     var mw = $(".record-list").innerWidth();
-    console.log($(".record-list").innerWidth());
     var its = $(".record-list-info");
     its.each(function() {
         $(this).css("width", mw - 60);
     });
-    console.log($($(".record-list-info")[0]).innerWidth());
 });
